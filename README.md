@@ -5,7 +5,7 @@ This is a sample project using CashApp Zipline
 The `shared` module has a JS target which gets bundled as a Zipline artifact into its host platform
 targets.
 
-To be able to ship this with the app (for initial load), there is some gradle magic:
+To be able to ship JS bundle with the app (for then initial load), there is some gradle magic:
 
 * There are 2 `PackageAllZiplineBundlesTask` tasks, (1 for development and 1 for production js targets)
 whose sole purpose is to put all zipline outputs into 1 folder structured in the following format:
