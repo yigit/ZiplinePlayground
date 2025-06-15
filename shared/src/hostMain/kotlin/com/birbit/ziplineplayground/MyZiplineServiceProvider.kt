@@ -55,8 +55,16 @@ object MyZiplineServiceProvider {
         val scope = ZiplineScope()
         val zipline = loadResult.zipline
         val service = zipline.take<MyZiplineService>("myZiplineService", scope)
+        zipline.bind<MyHostService>("myHostService", MyHostServiceImpl())
         return MyServiceWrapper(dispatcher, service)
     }
+}
+
+class MyHostServiceImpl : MyHostService {
+    override suspend fun echo(msg: String): String {
+        return "echo from host: $msg"
+    }
+
 }
 
 class MyServiceWrapper(val dispatcher: CoroutineDispatcher, val delegate: MyZiplineService) :
@@ -65,8 +73,7 @@ class MyServiceWrapper(val dispatcher: CoroutineDispatcher, val delegate: MyZipl
         delegate.echo(input)
     }
 
-    override fun blockingEcho(input: String): String {
-        return "cannot call this "
+    override suspend fun echoViaHost(input: String) = withContext(dispatcher) {
+        delegate.echoViaHost(input)
     }
-
 }

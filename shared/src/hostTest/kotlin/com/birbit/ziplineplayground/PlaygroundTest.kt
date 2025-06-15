@@ -21,5 +21,7 @@ class PlaygroundTest {
         val service = MyZiplineServiceProvider.obtain()
         val result = service.echo("hello")
         assertThat(result).isEqualTo("hello hello")
+        val echoViaHostResult = service.echoViaHost("hello")
+        assertThat(echoViaHostResult).isEqualTo("echo from host: hello")
     }
 }

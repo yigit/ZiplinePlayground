@@ -5,5 +5,5 @@ import app.cash.zipline.ZiplineService
 interface MyZiplineService : ZiplineService {
     suspend fun echo(input: String): String
     @Throws(RuntimeException::class)
-    fun blockingEcho(input: String): String
+    suspend fun echoViaHost(input: String): String
 }
